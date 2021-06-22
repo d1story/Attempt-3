@@ -12,8 +12,8 @@ public class PlayerMovement2 : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     private Rigidbody2D body;
     private BoxCollider2D boxCollider;
-    public int currentHealth;
-    int Maxhealth = 5;
+    private int currentHealth;
+    [SerializeField] private int Maxhealth;
     bool godmode = false; float godtimer = 2; float godleft;
     // Start is called before the first frame update
     void Start()
@@ -44,11 +44,14 @@ public class PlayerMovement2 : MonoBehaviour
         if (Input.GetKey(KeyCode.D) && body.velocity.x < maxSpeed)
         {
             body.AddForce(new Vector2(maxSpeed, 0));
+            transform.localScale = new Vector2(0.09f, -0.09f);
+
         }
         else if (Input.GetKey(KeyCode.A) && body.velocity.x > -maxSpeed)
         {
 
             body.AddForce(new Vector2(-maxSpeed, 0));
+            transform.localScale = new Vector2(0.09f, 0.09f);
         }
         else
         {

@@ -2,18 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-
 public class PlayerMovement1 : MonoBehaviour
 {
     [SerializeField] private float maxSpeed;
     [SerializeField] private float jumpSpeed;
     [SerializeField] private LayerMask groundLayer;
+
     private Rigidbody2D body;
     private BoxCollider2D boxCollider;
-    int currentHealth;
-    int Maxhealth = 5;
+    private int currentHealth;
+    [SerializeField] private int Maxhealth;
     bool godmode = false; float godtimer = 2; float godleft;
     // Start is called before the first frame update
     void Start()
@@ -43,11 +41,13 @@ public class PlayerMovement1 : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow) && body.velocity.x < maxSpeed)
         {
             body.AddForce(new Vector2(maxSpeed, 0));
+            transform.localScale = new Vector2(0.09f, -0.09f);
         }
         else if (Input.GetKey(KeyCode.LeftArrow) && body.velocity.x > -maxSpeed)
         {
 
             body.AddForce(new Vector2(-maxSpeed, 0));
+            transform.localScale = new Vector2(0.09f, 0.09f);
         }
         else
         {
