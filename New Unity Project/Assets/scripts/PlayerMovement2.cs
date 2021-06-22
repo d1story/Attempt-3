@@ -12,19 +12,35 @@ public class PlayerMovement2 : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     private Rigidbody2D body;
     private BoxCollider2D boxCollider;
+    public int currentHealth;
+    int Maxhealth = 5;
+    bool godmode = false; float godtimer = 2; float godleft;
     // Start is called before the first frame update
     void Start()
     {
+        //for movement
         body = GetComponent<Rigidbody2D>();//select the rigid body
         boxCollider = GetComponent<BoxCollider2D>();
-
-
+        //for health
+        currentHealth = Maxhealth;
     }
-
+    //change health
+    public void change(int amount)
+    {
+        if (!godmode)
+        {
+            currentHealth = Mathf.Clamp(currentHealth - amount, 0, Maxhealth);
+            Debug.Log(currentHealth + "/" + Maxhealth);
+            godmode = true; godleft = godtimer;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
-
+        //for health
+        if (godmode) godleft -= Time.deltaTime;
+        if (godleft < 0) godmode = false;
+        //for movement
         if (Input.GetKey(KeyCode.D) && body.velocity.x < maxSpeed)
         {
             body.AddForce(new Vector2(maxSpeed, 0));
