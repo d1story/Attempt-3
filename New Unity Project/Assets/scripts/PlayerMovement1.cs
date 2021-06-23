@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerMovement1 : MonoBehaviour
 {
     [SerializeField] private float maxSpeed;
@@ -59,7 +59,10 @@ public class PlayerMovement1 : MonoBehaviour
         {//input.getkey checks if the key is being pressed.
             Jump();
         }
-
+        if (currentHealth == 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        }
     }
 
     void Jump()
